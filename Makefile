@@ -3,7 +3,7 @@ QWERTY_FR_VERSION = 0.7.2
 DEBUG_APK = app/build/outputs/apk/debug/app-debug.apk
 RELEASE_APK = app/build/outputs/apk/release/app-release.apk
 
-DOCKER_IMAGE = androidsdk/android-29
+DOCKER_IMAGE = redemonbr/android-sdk:api-33
 
 all: help
 
@@ -20,7 +20,7 @@ help:
 	@echo "  make docker-release  Build a release APK using Docker"
 
 clean:
-	rm -rf qwerty-fr.kcm app/build
+	rm -rf qwerty-fr.kcm .gradle/ app/build/
 
 debug: $(DEBUG_APK)
 release: $(RELEASE_APK)
@@ -32,12 +32,16 @@ $(RELEASE_APK): qwerty-fr.kcm app/build.gradle $(shell find app/src -type f)
 	./gradlew assembleRelease
 
 docker-debug: qwerty-fr.kcm
-	docker run --rm --volume $(PWD):/app --workdir /app $(DOCKER_IMAGE) \
-		./gradlew --no-daemon assembleDebug
+	docker run --rm --volume $(PWD):/app --workdir /app \
+		--env ASDK_ACCEPT_LICENSES=yes --env ASDK_ACCEPT_LICENSES_SILENT=yes \
+		$(DOCKER_IMAGE) \
+		./gradlew assembleDebug
 
 docker-release: qwerty-fr.kcm
-	docker run --rm --volume $(PWD):/app --workdir /app $(DOCKER_IMAGE) \
-		./gradlew --no-daemon assembleRelease
+	docker run --rm --volume $(PWD):/app --workdir /app \
+		--env ASDK_ACCEPT_LICENSES=yes --env ASDK_ACCEPT_LICENSES_SILENT=yes \
+		$(DOCKER_IMAGE) \
+		./gradlew assembleRelease
 
 qwerty-fr.kcm:
 	curl -sL "https://github.com/qwerty-fr/qwerty-fr/raw/v$(QWERTY_FR_VERSION)/linux/us_qwerty-fr" \
