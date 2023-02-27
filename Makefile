@@ -28,7 +28,7 @@ release: $(RELEASE_APK)
 $(DEBUG_APK): qwerty-fr.kcm app/build.gradle $(shell find app/src -type f)
 	./gradlew assembleDebug
 
-$(RELEASE_APK): qwerty-fr.kcm app/build.gradle $(shell find app/src -type f)
+$(RELEASE_APK): qwerty-fr.kcm keystore.properties app/build.gradle $(shell find app/src -type f)
 	./gradlew assembleRelease
 
 docker-debug: qwerty-fr.kcm
@@ -37,7 +37,7 @@ docker-debug: qwerty-fr.kcm
 		$(DOCKER_IMAGE) \
 		./gradlew assembleDebug
 
-docker-release: qwerty-fr.kcm
+docker-release: qwerty-fr.kcm keystore.properties
 	docker run --rm --volume $(PWD):/app --workdir /app \
 		--env ASDK_ACCEPT_LICENSES=yes --env ASDK_ACCEPT_LICENSES_SILENT=yes \
 		$(DOCKER_IMAGE) \

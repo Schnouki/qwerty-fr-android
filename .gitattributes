@@ -1,0 +1,2 @@
+*.keystore filter=git-crypt diff=git-crypt
+prepare-keystore.sh filter=git-crypt diff=git-crypt

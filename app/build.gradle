@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
+def keystorePropsFile = rootProject.file("keystore.properties")
+def keystoreProps = new Properties()
+keystoreProps.load(new FileInputStream(keystorePropsFile))
+
 android {
     namespace "net.schnouki.qwerty_fr"
 
@@ -16,8 +20,18 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file(keystoreProps.storeFile)
+            storePassword keystoreProps.storePassword
+            keyAlias keystoreProps.keyAlias
+            keyPassword keystoreProps.keyPassword
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
