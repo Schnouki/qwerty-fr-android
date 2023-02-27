@@ -7,7 +7,7 @@ DOCKER_IMAGE = redemonbr/android-sdk:api-33
 
 all: help
 
-.PHONY: help clean debug release docker-debug docker-release
+.PHONY: help clean debug release docker-debug docker-release docker-build docker-pull
 help:
 	@echo "Usage:"
 	@echo "  make qwerty-fr.kcm   Generate an up-to-date KCM file based on QWERTY-fr v$(QWERTY_FR_VERSION)"
@@ -42,6 +42,15 @@ docker-release: qwerty-fr.kcm keystore.properties
 		--env ASDK_ACCEPT_LICENSES=yes --env ASDK_ACCEPT_LICENSES_SILENT=yes \
 		$(DOCKER_IMAGE) \
 		./gradlew assembleRelease
+
+docker-build: qwerty-fr.kcm keystore.properties
+	docker run --rm --volume $(PWD):/app --workdir /app \
+		--env ASDK_ACCEPT_LICENSES=yes --env ASDK_ACCEPT_LICENSES_SILENT=yes \
+		$(DOCKER_IMAGE) \
+		./gradlew assemble
+
+docker-pull:
+	docker pull $(DOCKER_IMAGE)
 
 qwerty-fr.kcm:
 	curl -sL "https://github.com/qwerty-fr/qwerty-fr/raw/v$(QWERTY_FR_VERSION)/linux/us_qwerty-fr" \
