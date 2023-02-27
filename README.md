@@ -8,14 +8,14 @@ Android keyboard layouts are more limited than most other platforms. This means 
 
 ## How to use it?
 
-1. Download the APK: ...
+1. Download the APK from <https://github.com/Schnouki/qwerty-fr-android/releases>
 2. Install the APK: you can either transfer it to your Android device and install it from there, or use `adb install qwerty-fr.apk` if you know how to use ADB.
 3. Connect your keyboard
 4. Change the layout to QWERTY-fr. The exact process to do it varies by device; for me, I have to go into Settings > System & Updates > Language & input > More settings > Physical keyboard > (Keyboard name & model), disable the default layout, and choose "English (US), QWERTY-fr" from the list.
 
 ## How to build it?
 
-1. Generate an up-to-date `.kcm` file: `make qwerty-fr.kcm`
+1. Generate an up-to-date `.kcm` file: `make qwerty-fr.kcm` (requires Python3, curl, and `libxkbcommon`)
 2. Build the app:
   - Using Docker (easy if you don't have Android SDK and build tools installed): `make docker-debug`
   - Using Gradle (if you have Android SDK and build tools installed and ready): `make debug`
