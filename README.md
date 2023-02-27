@@ -1,22 +1,27 @@
-This is a skeleton project for an Android application to customize an external keyboard layout without rooting or 3rd-party keyboard installation.
+# QWERTY-fr for Android
 
-It's a skeleton, so there is no apk or Play Store link. You'll have to build it and install resulting app on a device manually.
+This is a port of the [QWERTY-fr keyboard layout](https://github.com/qwerty-fr/qwerty-fr) for Android. By installing this app, you will be able to use that layout **on external, physical keyboards** (either USB-C or Bluetooth).
 
-**Note**: if you don't want to build the app take a look at [ExKeyMo](https://exkeymo.herokuapp.com/) ([source code](https://github.com/ris58h/exkeymo-web)). It will build the app for you, but it's limited to two layouts only.
+## Limitations
 
-# External keyboard customization
-There are several ways to customize an external keyboard on Android:
-1. Install 3-rd party keyboard which allows customization.
-2. Add/modify [Key Layout Files](https://source.android.com/devices/input/key-layout-files) or [Key Character Map Files](https://source.android.com/devices/input/key-character-map-files) on a device with root access.
-3. Install an application which provides [additional keyboard layouts](https://developer.android.com/reference/android/hardware/input/InputManager#ACTION_QUERY_KEYBOARD_LAYOUTS) (Key Character Map files).
+Android keyboard layouts are more limited than most other platforms. This means that QWERTY-fr for Android has less features than on Windows, Mac or Linux. In particular, there are only dead keys for common accents (only acute, grave, diaresis, circumflex, and tilde), and not for Greek letters or math symbols.
 
-This project aims at the 3-rd option.
+## How to use it?
 
-# The Way
-1. Clone the project
-2. Customize keyboard layouts.
-3. Build the app and install it on a device.
-4. Select your custom layout in device settings.
+1. Download the APK: ...
+2. Install the APK: you can either transfer it to your Android device and install it from there, or use `adb install qwerty-fr.apk` if you know how to use ADB.
+3. Connect your keyboard
+4. Change the layout to QWERTY-fr. The exact process to do it varies by device; for me, I have to go into Settings > System & Updates > Language & input > More settings > Physical keyboard > (Keyboard name & model), disable the default layout, and choose "English (US), QWERTY-fr" from the list.
 
-# Example
-You can find an example [here](https://github.com/ris58h/custom-keyboard-layout/tree/Vendor_17ef_Product_6048/app/src/main/res/raw). There are two ```kcm``` files to make MacOS like layout for ThinkPad Compact Bluetooth Keyboard (English and Russian). Default ```kcm``` files for different languages can be found [here](https://android.googlesource.com/platform/frameworks/base/+/master/packages/InputDevices/res/raw).
+## How to build it?
+
+1. Generate an up-to-date `.kcm` file: `make qwerty-fr.kcm`
+2. Build the app:
+  - Using Docker (easy if you don't have Android SDK and build tools installed): `make docker-debug`
+  - Using Gradle (if you have Android SDK and build tools installed and ready): `make debug`
+
+The output will be in `app/build/outputs/apk`.
+
+## About this Android app
+
+This app is heavily based on the [Custom Keyboard Layout](https://github.com/ris58h/custom-keyboard-layout/) app by [Ilya Rodionov](https://github.com/ris58h). Many thanks to him for that! 🙏
