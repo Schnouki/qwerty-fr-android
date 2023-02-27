@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Disposition de clavier QWERTY-fr</string>
+    <string name="keyboard_layouts_label">QWERTY-fr</string>
+    <string name="keyboard_layout_qwerty_fr_label">Anglais (États-Unis), QWERTY-fr</string>
+</resources>
